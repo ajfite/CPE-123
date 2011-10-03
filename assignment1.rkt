@@ -5,7 +5,7 @@
 
 ;Define song and silence
 (define song "hg.wav")
-(define silence1 (silence 88200))
+(define silence1 (silence 88200)) ;creates 2 seconds of silence
 
 ;cut song
 (define clip1 (rs-read/clip song 123 123))
@@ -14,7 +14,7 @@
 (define CompleteSong (rs-append clip1 silence1 clip2))
 
 ;play
-(define (go) (play CompleteSong))
+(play CompleteSong)
 
 ;write
 (rs-write CompleteSong "Assignment1Song.wav")
