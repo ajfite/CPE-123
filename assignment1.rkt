@@ -5,23 +5,23 @@
 
 ;Define song and silence
 (define song "hg.wav")
-(define silence1 (silence 88200)) ;creates 2 seconds of silence
+(define silence1 (silence 58800)) ;creates 2 seconds of silence
 
 ;cut song
-(define clip1 (rs-read/clip song 123 123))
-(define clip2 (rs-read/clip song 123 123))
-(define clip3 (rs-read/clip song 123 123))
+(define clip1 (rs-read/clip song 22050 220500))
+(define clip2 (rs-read/clip song 1054298 1274458))
+(define clip3 (rs-read/clip song 2709704 2989256))
 (define clip4 (rs-read/clip song 123 123))
 
 ;make song
-(define CompleteSong (rs-append clip1 
-                                silence1 
-                                clip2 
-                                silence1 
-                                clip3 
-                                silence1 
-                                clip4))
-
+(define CompleteSong (rs-append* (list clip1 
+                                       clip1
+                                       clip1
+                                       clip1
+                                       silence1 
+                                       clip2 
+                                       clip3 )))
+ 
 ;play
 (play CompleteSong)
 
