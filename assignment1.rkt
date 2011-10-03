@@ -9,9 +9,19 @@
 
 ;cut song
 (define clip1 (rs-read/clip song 123 123))
+(define clip2 (rs-read/clip song 123 123))
+(define clip3 (rs-read/clip song 123 123))
+(define clip4 (rs-read/clip song 123 123))
 
 ;make song
-(define CompleteSong (rs-append clip1 silence1 clip2))
+(define CompleteSong (rs-append 
+                      clip1 
+                      silence1 
+                      clip2 
+                      silence1 
+                      clip3 
+                      silence1 
+                      clip4))
 
 ;play
 (play CompleteSong)
