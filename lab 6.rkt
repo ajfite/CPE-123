@@ -8,14 +8,14 @@
 (require (planet "main.rkt" ("clements" "rsound.plt" 2 5)))
 ;Stutter
 (define (stutter sound)
-  (play (rs-append* (list (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
+        (rs-append* (list (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
                           (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
                           (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
                           (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
                           (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
                           (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
                           (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))
-                          (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8))))))
+                          (rs-read/clip sound 0 (round (/ (rsound-frames (rs-read sound)) 8)))))
 )
 ;Chord
 (define (chord pitch1 pitch2 pitch3)
@@ -30,3 +30,13 @@
           (if (or (= (/ 6 5) (/ pitch1 pitch2)) (= (/ 5 6) (/ pitch1 pitch2))) "third"
               "Unknown"))) 
 )
+;Noisy
+(define (noisy n)
+  (/ (- (random 100 (make-pseudo-random-generator)) 50) 200)
+)
+
+;Squarewave -> Sound
+(play (mono-signal->rsound 44100 noisy))
+;WHAT AM I HEARING O_O
+
+;
