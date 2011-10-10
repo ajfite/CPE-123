@@ -39,4 +39,10 @@
 (play (mono-signal->rsound 44100 noisy))
 ;WHAT AM I HEARING O_O
 
-;
+;Modulo
+(define (squarewave n)
+  (if (< (modulo n 200) 100) 10000 0) 
+)
+
+;Mono signal again
+(play (mono-signal->rsound 44100 squarewave))
