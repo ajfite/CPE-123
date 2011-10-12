@@ -23,8 +23,8 @@
 ;Chord
 (define (chord pitch1 pitch2 pitch3)
    (overlay* (list (make-tone pitch1 1 44100)
-                        (make-tone pitch2 1 44100)
-                        (make-tone pitch3 1 44100)))
+                   (make-tone pitch2 1 44100)
+                   (make-tone pitch3 1 44100)))
 )
 (play (chord 150 250 350))
 
