@@ -17,24 +17,15 @@
 
 ;Midhid note number major 3rd
 (define (up-maj-3/nn midi) (+ midi 4))
+(check-expect (up-maj-3/nn 5) 9)
 
 ;Midi note number octave
 (define (note-num->octave midinum)
-  (cond [(and (>= midinum 0) (<= midinum 11)) -1]
-        [(and (>= midinum 12) (<= midinum 23)) 0]
-        [(and (>= midinum 24) (<= midinum 35)) 1]
-        [(and (>= midinum 36) (<= midinum 47)) 2]
-        [(and (>= midinum 48) (<= midinum 59)) 3]
-        [(and (>= midinum 60) (<= midinum 71)) 4]
-        [(and (>= midinum 72) (<= midinum 83)) 5]
-        [(and (>= midinum 84) (<= midinum 95)) 6]
-        [(and (>= midinum 96) (<= midinum 107)) 7]
-        [(and (>= midinum 108) (<= midinum 119)) 8]
-        [(and (>= midinum 120) (<= midinum 127)) 9]
-        [else (error "Out of Range")]
-  )
+  (- (floor (/ midinum 12)) 1)
 )
 (check-expect (note-num->octave 10) -1)
+(check-expect (note-num->octave 13) 0)
+(check-expect (note-num->octave 36) 2)
 
 ;accepts a MIDI note number and returns a name of the note
 (define (note-num->class midinum)
@@ -53,7 +44,7 @@
         [else(error "Out of Range")]
   )
 )
-(check-expect (note-num->class 48) "C")
+(check-expect (note-num->class 47) "B")
 
 ;Name of note to midi number
 (define (name->note-num name octave)
@@ -75,6 +66,7 @@
 (check-expect (name->note-num "C#" 1) 25) 
 (check-expect (name->note-num "B♭" 5) 82)
 (check-expect (name->note-num "G" 2) 43)
+(check-expect (name->note-num "G" -1) 7)
 
 ;name to rsound
 (define (name->rsound name octave)
@@ -82,7 +74,7 @@
   ;http://tomscarff.110mb.com/midi_analyser/midi_note_frequency.htm
   (make-tone (* 440 (expt 2 (/ (- (name->note-num name octave) 69) 12))) 1 22100)
 )
-;;Old checks for equation - Passed
+;;Old checks for equation prior to addition of (make-tone) - Passed
 ;Check within because numbers are not exact
 ;(check-within (name->rsound "C" 4) 261.6 .1)
 ;(check-within (name->rsound "C" -1) 8.1 .1)
