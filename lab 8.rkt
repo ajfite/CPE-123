@@ -20,8 +20,17 @@
 ;Define sum-t to be sum of 3 waves
 (define (sum-t n)
   (+ (sin (/ (* 2 pi 400 n) 44100)) (sin (* n (/ 15 pi))) (sin (/ n pi))))
-;NEVER PLAY THIS WAVE. EVER.
-;(play (mono-signal->rsound  44100 sum-t)) 
+;NEVER PLAY THIS WAVE. EVER. ಠ_ಠ
+; Always run this commented out
+(play (mono-signal->rsound  44100 sum-t)) 
 (rsound-draw (mono-signal->rsound  44100 sum-t))
 
+;Make play and draw the sound sample
+(define soundclip (rs-read/clip "If i had $1000000.wav" 44100 44500))
 
+(play (times 100 soundclip))
+(rsound-draw soundclip)
+
+;Attempting to replicate the audio clip with math for extra credit 
+; ಠ_ಠ
+; There is no way that is happening
