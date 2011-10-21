@@ -23,15 +23,16 @@
 (define (beat f t)
   (local
     [(define (frequency1 x)
-       (sin (/ (* 2 pi f x) 44100)))
+       (/ (sin (/ (* 2 pi f x) 44100)) 2))
      (define (frequency2 x) 
-       (sin (/ (* 2 pi (+ f 1) x) 44100)))]
+       (/ (sin (/ (* 2 pi (+ f 1) x) 44100)) 2))]
     (overlay (mono-signal->rsound (* 4 t 44100) frequency1)
              (mono-signal->rsound (* 4 t 44100) frequency2))
                                   
   )
 )
-(rsound-draw (beat 100 4))
+(rsound-draw (beat 440 1))
+(play (beat 440 1))
 
 ; Sequencing
 ;; Midi note number -> rsound : (note n) -> rsound
