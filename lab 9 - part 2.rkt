@@ -8,13 +8,13 @@
 )
 
 ; Make a song
-;; 
-;;
+;; list -> rsound : (notes->music notes) -> rsound
+;; Takes in a list of midi notes, outputs an rsound
 
 (define (notes->music notes)
    (rs-append* 
     (for/list ([notes (in-list notes)])
       (note notes))))
 
-(play (notes->music (list 64 64 65 67 67 65 64 62 60 60 62 64 64 62 62 false 64 64 65 67 67 65 64 62 60 60 62 64 62 60 60)))
+(play (notes->music (list 76 76 76 72 76 79 43 false 72 67 64 69 71 70 69 67 76 79 81 77 79 76 72 74 71 false 72 67 64 69 71 70 69 67 76 79 81 77 79 76 72 74 71)))
 
