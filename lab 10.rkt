@@ -33,7 +33,7 @@
 ;; rescale : rsound -> rsound
 ;; takes in a sound and a number and returns a sound which is shrunk by the number
 (define (rescale sound renum)
-  (local [(define (make-a-sound num) (rs-ith/left sound (inexact->exact (* num renum))))]
+  (local [(define (make-a-sound num) (rs-ith/left sound (inexact->exact (/ num renum))))]
   (mono-signal->rsound (* (rsound-frames sound) renum) make-a-sound))
 )
 ; Testing 1 2 3
