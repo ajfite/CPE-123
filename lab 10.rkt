@@ -1,6 +1,5 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-intermediate-reader.ss" "lang")((modname |lab 10|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
+#lang Racket
+
 (require (planet "main.rkt" ("clements" "rsound.plt" 2 7)))
 (require (planet "draw.rkt" ("clements" "rsound.plt" 2 7)))
 
@@ -25,13 +24,19 @@
   )
 )
 ; Testing 1 2 3
-(rsound-draw (reverse-odd-seconds (rs-read/clip "If I had $1000000.wav" 0 (* 44100 60))))
-(play (reverse-odd-seconds (rs-read/clip "If I had $1000000.wav" 0 (* 44100 60))))
+(rsound-draw (reverse-odd-seconds (rs-read/clip "If I had $1000000.wav" 0 (* 44100 15))))
+(play (reverse-odd-seconds (rs-read/clip "If I had $1000000.wav" 0 (* 44100 15))))
 
 
 ;; rescale : rsound -> rsound
 ;; takes in a sound and a number and returns a sound which is shrunk by the number
 (define (rescale sound renum)
-  (local [
-         ])
-) 
+  (local [(define (make-a-sound num) (cond [() ()]
+                                           [else ()])
+         )]
+  )
+)
+(rsound-draw (rescale (rs-read/clip "If I had $10000000.wav" 0 (* 44100 15)) .5))
+
+
+;; The random number explosion of sound and terror
