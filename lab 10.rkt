@@ -3,6 +3,7 @@
 (require (planet "main.rkt" ("clements" "rsound.plt" 2 7)))
 (require (planet "draw.rkt" ("clements" "rsound.plt" 2 7)))
 
+; Clip to test with
 (define test-music (rs-read/clip "If I had $1000000.wav" 0 (* 44100 15)))
 
 ;; reverse-sound : rsound -> rsound
@@ -42,4 +43,21 @@
 (play (rescale test-music .5))
 
 
+;; Part 4 does not work :(
+
+#|
 ;; The random number explosion of sound and terror
+(define rand-value (+ (/ (random 3) 2) .5))
+(define rand-second (random (- (rsound-frames test-music) 44100)))
+;(define rand-overlap (random (* 44100 28)))
+;(define sound-bit (rescale (clip test-music rand-second (+ rand-second 44100)) rand-value))
+
+(define blerg (for/list ([i (in-range 7)])
+                  (clip test-music rand-second (+ rand-second 44100))))
+                  
+(define assembled (assemble (for/list ([i (in-range 20)])
+                              (list-ref blerg (random 7)))))
+
+;(rsound-draw blerg)
+|#
+
