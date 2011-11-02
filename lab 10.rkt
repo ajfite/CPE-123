@@ -4,7 +4,7 @@
 (require (planet "draw.rkt" ("clements" "rsound.plt" 2 7)))
 
 ; Clip to test with
-(define test-music (rs-read/clip "If I had $1000000.wav" 0 (* 44100 15)))
+(define test-music (rs-read/clip "If I had $1000000.wav" 0 (* 44100 60)))
 
 ;; reverse-sound : rsound -> rsound
 ;; Reverse a sound
@@ -28,7 +28,7 @@
 )
 ; Testing 1 2 3
 (rsound-draw (reverse-odd-seconds test-music))
-;(play (reverse-odd-seconds test-music))
+(play (reverse-odd-seconds test-music))
 
 
 ;; rescale : rsound -> rsound
