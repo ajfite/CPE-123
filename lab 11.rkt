@@ -1,8 +1,8 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-reader.ss" "lang")((modname |lab 11|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
-(require (planet "main.rkt" ("clements" "rsound.plt" 2 7)))
-(require (planet "draw.rkt" ("clements" "rsound.plt" 2 7)))
+(require (planet "main.rkt" ("clements" "rsound.plt" 2 8)))
+(require (planet "draw.rkt" ("clements" "rsound.plt" 2 8)))
 
 ; Part 1 Make the various tones into 1 rsound
 (define tones (rs-append* (list (make-tone 400 1 44100)
