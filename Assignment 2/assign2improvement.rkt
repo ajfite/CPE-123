@@ -6,15 +6,17 @@
          racket/runtime-path
          rackunit)
 
-;; locate the pattern file
+;; locate the pattern file, use this to import txt files with the notes
 (define-runtime-path src-file "bach2.txt" #;"dontgo.txt")
+#;(define-runtime-path src-file2 "verse1.txt")
+#;(define-runtime-path src-file3 "Chorus.txt")
 
 ;; define some constants
 (define tempo 120)
 (define secondsperbeat (/ 60 tempo))
 (define framesperbeat (* (default-sample-rate) 
                          secondsperbeat))
-(define linesperbeat 4)
+(define linesperbeat 8)
 (define framesperline (/ framesperbeat linesperbeat))
 
 ;; a trigger is (list number character number)
@@ -53,6 +55,11 @@
        (note-mapper line start char dur family wave-num)])))
 
 ;; read the file and play the resulting sound
+;; This takes a note and allows us to make sound
+
+
+;;Repeat this for every sound we use, use the src-file for the the part and the envelope
+;;This is the predefined sound, uses a library and a number that is already made.
 (define (go family wave-num)
   (define rows (file->trigger-rows src-file))
   (define sound/offsets (for/list ([l (in-list rows)]
@@ -60,6 +67,19 @@
                           (triggers->overlay-list i l family wave-num)))
   (define s (assemble (apply append sound/offsets)))
   (play s))
+
+;;This is a sound made from an envolope WE chose.
+(define (Sound2)
+  (define rows (file->trigger-rows src-file3))
+  (define sound/offsets (for/list ([l (in-list rows)]
+                                   [i (in-naturals)])
+                          (triggers->overlay-list i l)))
+  (define s (assemble (apply append sound/offsets)))
+  (play s))
+;;
+#;(define FINAL SONG (append (overlay) bla bla bla))
+
+
 
 
 ;; given the line of the note, the column in which it occurs,
