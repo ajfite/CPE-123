@@ -8,7 +8,7 @@
 #;(define (f omega)
   (magnitude
    ;Note that "exp" is always e^n, "expt" is any-number^n
-   (+ 1 (exp (* -1 i 2 pi omega 1/44100 30)))))
+   (+ 1 (exp (* -1 i 2 pi omega 1/44100 0.64114136)))))
 
 #;(plot
  (function f)
@@ -17,7 +17,7 @@
 
 ;;This does work :D
 (define (m z)
-  (+ 7/10 (* 33/20 (expt z 3)) (* 2/3 (expt z 4))))
+  (+ 7/10 (* 33/20 (expt z 2)) (* 2/3 (expt z 4))))
 
 (define (f x y)
   (magnitude (m (+ x (* i y)))))

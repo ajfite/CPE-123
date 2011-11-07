@@ -24,10 +24,10 @@
 
 ; Part 4 kill only the second tone
 (define delay2 (/ 44100 900))
-;(play (delay-by-n tones delay2))
+(play (delay-by-n tones delay2))
 (rsound-draw (delay-by-n tones delay2))
 
 
 ; Part 5 Kill all the notes or say it's impossible
-;Killing all the notes is impossible because there is no offset
+;Killing all the notes is impossible because there is no offset or common frequency
 ;you can find that will cancel all four simultaneously.
