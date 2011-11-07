@@ -1,20 +1,20 @@
 #lang racket
 
-(require (planet clements/rsound)
+(require (planet clements/rsound:2:8)
+         (planet clements/rsound:2:8/single-cycle)
+         #;"bass-sounds.rkt"
          racket/runtime-path
          rackunit)
 
-(require "bass-sounds.rkt")
-
 ;; locate the pattern file
-(define-runtime-path src-file "bach.txt")
+(define-runtime-path src-file "bach2.txt" #;"dontgo.txt")
 
 ;; define some constants
 (define tempo 120)
 (define secondsperbeat (/ 60 tempo))
 (define framesperbeat (* (default-sample-rate) 
                          secondsperbeat))
-(define linesperbeat 2)
+(define linesperbeat 4)
 (define framesperline (/ framesperbeat linesperbeat))
 
 ;; a trigger is (list number character number)
@@ -46,48 +46,68 @@
 
 ;; convert a list of trigger-pairs to a list of 
 ;; sound/offset lists, for use with assemble
-(define (triggers->overlay-list line triggers)
-  (define line-octave-offset (+ 40 (* 12 (- 3 line))))
+(define (triggers->overlay-list line triggers family wave-num)
   (for/list ([t (in-list triggers)])
     (match t
       [(list start char dur)
-       (define frames (* dur framesperline))
-       (match char
-         [#\. (list (silence 1) 0)]
-         [other (list (synth-note (your-mapper
-                                   (+ line-octave-offset
-                                      (digit->half-steps other)))
-                                  frames)
-                      (* start framesperline))])])))
+       (note-mapper line start char dur family wave-num)])))
+
+;; read the file and play the resulting sound
+(define (go family wave-num)
+  (define rows (file->trigger-rows src-file))
+  (define sound/offsets (for/list ([l (in-list rows)]
+                                   [i (in-naturals)])
+                          (triggers->overlay-list i l family wave-num)))
+  (define s (assemble (apply append sound/offsets)))
+  (play s))
+
+
+;; given the line of the note, the column in which it occurs,
+;; the character that signals it, and the duration (in columns),
+;; produce a list containing the sound and the placement, suitable
+;; for use with assemble
+(define (note-mapper line start char dur family wave-num)
+  
+  (define line-octave-offset (cond 
+                                   
+                                   [(and (>= line 1) (<= line 5)) (+ 40 (* 12 (- 3 0)))]
+                                   [(and (>= line 7) (<= line 11)) (+ 40 (* 12 (- 3 1)))]
+                                   [(and (>= line 13) (<= line 17)) (+ 40 (* 12 (- 3 2)))]
+                                   [(and (>= line 19) (<= line 23)) (+ 40 (* 12 (- 3 3)))]
+                                   [(and (>= line 25) (<= line 29)) (+ 40 (* 12 (- 3 4)))]
+                                   [(and (>= line 31) (<= line 35)) (+ 40 (* 12 (- 3 5)))]
+                                   ))
+  
+  (define frames (* dur framesperline))
+  (match char
+    [#\. (list (silence 1) 0)]
+    [#\- (list (silence 1) 0)]
+    [other (list (synth-note  family wave-num(your-mapper 
+                                              (+ line-octave-offset(digit->half-steps other)))  frames) 
+                                              (* start framesperline))]))
 
 ;; convert a scale-note-number to a number of half-steps
 ;; number -> number
 (define (digit->half-steps digit)
   (match digit
     [#\1 0]
+    [#\! 1]
     [#\2 2]
+    [#\@ 3]
     [#\3 4]
     [#\4 5]
+    [#\$ 6]
     [#\5 7]
+    [#\% 8]
     [#\6 9]
+    [#\^ 10]
     [#\7 11]
     [#\8 12]
+    [#\* 13]
     [#\9 14]))
-
-;; read the file and play the resulting sound
-(define (go)
-  (define rows (file->trigger-rows src-file))
-  ;; take only enough rows to match the sounds given
-  #;(define num-taken (length trigger-rows))
-  #;(define used-bool-rows (take bool-rows num-taken))
-  #;(define used-sounds (take sounds num-taken))
-  (define sound/offsets (for/list ([l (in-list rows)]
-                                   [i (in-naturals)])
-                          (triggers->overlay-list i l)))
-  (define s (assemble (apply append sound/offsets)))
-  (play s))
-
 
 ;; initially, "your-mapper" takes 'n' and returns 'n'.
 (define (your-mapper n)
   n)
+
+(go "vgame" 5)
