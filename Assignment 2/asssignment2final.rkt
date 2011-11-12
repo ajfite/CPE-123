@@ -129,12 +129,12 @@
 (define Verse1 (overlay* (list (scale .5 (vocal VocalVerse1))
                                (scale .2 (Guitar2 Guitar2Verse1)))))
 (define Chorus3 (scale .5 (vocal VocalChorus)))
-#;(define Verse2 (overlay* (list (scale .5 (vocal VocalVerse2))
-                                 (scale .2 (Guitar3 Guitar2Verse2)))))
+(define Verse2 (overlay* (list (scale .5 (vocal VocalVerse2))
+                               (scale .2 (Guitar3 Guitar2Verse2)))))
 (define Interlude (overlay* (list (scale .5 (vocal VocalInterlude))
                                   (scale .1 (Guitar3 Guitar3Interlude)))))
-#;(define Verse3 (overlay* (list (scale .5 (vocal VocalVerse3))
-                                 (scale .2 (Guitar2 Guitar2Verse3)))))
+(define Verse3 (overlay* (list (scale .5 (vocal VocalVerse3))
+                               (scale .2 (Guitar2 Guitar2Verse3)))))
 (define Outro (scale .5 (vocal VocalOutro)))
 
 (play (rs-append* (list Verse1
