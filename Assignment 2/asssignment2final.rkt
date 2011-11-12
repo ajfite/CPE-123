@@ -18,7 +18,9 @@
 (define-runtime-path Guitar2Verse2 "Guitar2Verse2.txt")
 (define-runtime-path Guitar3Interlude "Guitar3Interlude.txt")
 (define-runtime-path VocalInterlude "VocalInterlude.txt")
-;(define-runtime-path Guitar2Verse3 "Guitar2Verse3.txt")
+(define-runtime-path Guitar2Verse3 "Guitar2Verse3.txt")
+;(define-runtime-path VocalVerse2 "VocalVerse2.txt")
+;(define-runtime-path VocalVerse3 "VocalVerse3.txt")
 (define-runtime-path VocalOutro "VocalOutro.txt")
 ;; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
