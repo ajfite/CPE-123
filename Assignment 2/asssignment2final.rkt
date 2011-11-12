@@ -121,27 +121,29 @@
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ;"Song" is here, Going to use a series of append's and overlays
-(define Chorus2 (overlay* (list (scale .5 (vocal VocalChorus))
-                                (scale .2 (Guitar2 Guitar2Chorus2))
-                                (scale .2 (Guitar3 Guitar3Chorus2)))))
-(define Chorus1 (overlay* (list (scale .5 (vocal VocalChorus))
-                                (scale .2 (Guitar2 Guitar2Chorus1)))))
-(define Verse1 (overlay* (list (scale .5 (vocal VocalVerse1))
-                               (scale .2 (Guitar2 Guitar2Verse1)))))
+(define Chorus2 (overlay* (list (scale .4 (vocal VocalChorus))
+                                (scale .1 (Guitar2 Guitar2Chorus2))
+                                (scale .1 (Guitar3 Guitar3Chorus2)))))
+(define Chorus1 (overlay* (list (scale .4 (vocal VocalChorus))
+                                (scale .1 (Guitar2 Guitar2Chorus1)))))
+(define Verse1 (overlay* (list (scale .4 (vocal VocalVerse1))
+                               (scale .1 (Guitar2 Guitar2Verse1)))))
 (define Chorus3 (scale .5 (vocal VocalChorus)))
-(define Verse2 (overlay* (list (scale .5 (vocal VocalVerse2))
-                               (scale .2 (Guitar3 Guitar2Verse2)))))
-(define Interlude (overlay* (list (scale .5 (vocal VocalInterlude))
+(define Verse2 (overlay* (list (scale .4 (vocal VocalVerse2))
+                               (scale .1 (Guitar3 Guitar2Verse2)))))
+(define Interlude (overlay* (list (scale .4 (vocal VocalInterlude))
                                   (scale .1 (Guitar3 Guitar3Interlude)))))
-(define Verse3 (overlay* (list (scale .5 (vocal VocalVerse3))
-                               (scale .2 (Guitar2 Guitar2Verse3)))))
+(define Verse3 (overlay* (list (scale .4 (vocal VocalVerse3))
+                               (scale .1 (Guitar2 Guitar2Verse3)))))
 (define Outro (scale .5 (vocal VocalOutro)))
 
-(play (rs-append* (list Verse1
-                        Chorus1
-                        Verse2
-                        Chorus2
-                        Interlude
-                        Verse3
-                        Chorus3
-                        Outro)))
+(define Song (rs-append* (list Verse1
+                               Chorus1
+                               Verse2
+                               Chorus2
+                               Interlude
+                               Verse3
+                               Chorus3
+                               Outro)))
+(play Song)
+(rs-write Song "Still Alive Team Gamma.wav")
