@@ -71,8 +71,8 @@
   (match char
     [#\. (list (silence 1) 0)]
     [#\- (list (silence 1) 0)]
-    [other (list (synth-note  family wave-num(your-mapper 
-                                              (+ line-octave-offset(digit->half-steps other)))  frames) 
+    [other (list (scale .5 (synth-note  family wave-num(your-mapper 
+                                              (+ line-octave-offset(digit->half-steps other)))  frames)) 
                                               (* start framesperline))]))
 
 ;; convert a scale-note-number to a number of half-steps
@@ -121,9 +121,9 @@
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ;; Scalers
-(define v .4)
-(define g2 .24)
-(define g3 .24)
+(define v .6)
+(define g2 .4)
+(define g3 .4)
 
 ;"Song" is here, Going to use a series of append's and overlays
 (define Chorus2 (overlay* (list (scale v (vocal VocalChorus))
@@ -135,7 +135,7 @@
                                (scale g2 (Guitar2 Guitar2Verse1)))))
 (define Chorus3 (scale .5 (vocal VocalChorus)))
 (define Verse2 (overlay* (list (scale v (vocal VocalVerse2))
-                               (scale g3 (Guitar3 Guitar2Verse2)))))
+                               (scale g2 (Guitar2 Guitar2Verse2)))))
 (define Interlude (overlay* (list (scale v (vocal VocalInterlude))
                                   (scale g3 (Guitar3 Guitar3Interlude)))))
 (define Verse3 (overlay* (list (scale v (vocal VocalVerse3))
@@ -154,4 +154,4 @@
 
 ;;Play and Write
 (play Song)
-(rs-write Song "Still Alive Team Gamma.wav")
+;(rs-write Song "Still Alive Team Gamma.wav")
