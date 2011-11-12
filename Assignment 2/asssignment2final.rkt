@@ -120,23 +120,29 @@
  s)
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-;"Song" is here, Going to use a series of append's and overlays
-(define Chorus2 (overlay* (list (scale .4 (vocal VocalChorus))
-                                (scale .1 (Guitar2 Guitar2Chorus2))
-                                (scale .1 (Guitar3 Guitar3Chorus2)))))
-(define Chorus1 (overlay* (list (scale .4 (vocal VocalChorus))
-                                (scale .1 (Guitar2 Guitar2Chorus1)))))
-(define Verse1 (overlay* (list (scale .4 (vocal VocalVerse1))
-                               (scale .1 (Guitar2 Guitar2Verse1)))))
-(define Chorus3 (scale .5 (vocal VocalChorus)))
-(define Verse2 (overlay* (list (scale .4 (vocal VocalVerse2))
-                               (scale .1 (Guitar3 Guitar2Verse2)))))
-(define Interlude (overlay* (list (scale .4 (vocal VocalInterlude))
-                                  (scale .1 (Guitar3 Guitar3Interlude)))))
-(define Verse3 (overlay* (list (scale .4 (vocal VocalVerse3))
-                               (scale .1 (Guitar2 Guitar2Verse3)))))
-(define Outro (scale .5 (vocal VocalOutro)))
+;; Scalers
+(define v .4)
+(define g2 .24)
+(define g3 .24)
 
+;"Song" is here, Going to use a series of append's and overlays
+(define Chorus2 (overlay* (list (scale v (vocal VocalChorus))
+                                (scale g2 (Guitar2 Guitar2Chorus2))
+                                (scale g3 (Guitar3 Guitar3Chorus2)))))
+(define Chorus1 (overlay* (list (scale v (vocal VocalChorus))
+                                (scale g2 (Guitar2 Guitar2Chorus1)))))
+(define Verse1 (overlay* (list (scale v (vocal VocalVerse1))
+                               (scale g2 (Guitar2 Guitar2Verse1)))))
+(define Chorus3 (scale .5 (vocal VocalChorus)))
+(define Verse2 (overlay* (list (scale v (vocal VocalVerse2))
+                               (scale g3 (Guitar3 Guitar2Verse2)))))
+(define Interlude (overlay* (list (scale v (vocal VocalInterlude))
+                                  (scale g3 (Guitar3 Guitar3Interlude)))))
+(define Verse3 (overlay* (list (scale v (vocal VocalVerse3))
+                               (scale g2 (Guitar2 Guitar2Verse3)))))
+(define Outro (scale v (vocal VocalOutro)))
+
+;;Assemble song
 (define Song (rs-append* (list Verse1
                                Chorus1
                                Verse2
@@ -145,5 +151,7 @@
                                Verse3
                                Chorus3
                                Outro)))
+
+;;Play and Write
 (play Song)
 (rs-write Song "Still Alive Team Gamma.wav")
