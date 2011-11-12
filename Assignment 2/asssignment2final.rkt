@@ -9,10 +9,16 @@
          
 
 ;; locate the pattern file, use this to import txt files with the notes////////////////////////////////////////////////////////////
-(define-runtime-path src-file "VocalChorus.txt"); Change this to whatever text needed
-(define-runtime-path src-file2 "Guitar3Chorus.txt")
-#;(define-runtime-path src-file3 "ChorusVocal.txt")
-#;(define-runtime-path src-file4 "etc etc")
+(define-runtime-path VocalChorus "VocalChorus.txt"); Change this to whatever text needed
+(define-runtime-path Guitar3Chorus2 "Guitar3Chorus2.txt")
+(define-runtime-path Guitar2Chorus2 "Guitar2Chorus2.txt")
+(define-runtime-path VocalVerse1 "VocalVerse1.txt")
+(define-runtime-path Guitar2Verse1 "Guitar2Verse1.txt")
+(define-runtime-path Guitar2Chorus1 "Guitar2Chorus1.txt")
+(define-runtime-path Guitar2Verse2 "Guitar2Verse2.txt")
+(define-runtime-path Guitar3Interlude "Guitar3Interlude.txt")
+(define-runtime-path VocalInterlude "VocalInterlude.txt")
+(define-runtime-path Guitar2Verse3 "Guitar2Verse3.txt")
 ;; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -92,11 +98,45 @@
   (define rows (file->trigger-rows file))
   (define sound/offsets (for/list ([l (in-list rows)]
                                    [i (in-naturals)])
-                          (triggers->overlay-list i l "vgame" 61)));;Sound "Type" goes here and number
+                          (triggers->overlay-list i l "path" "Voice.wav")));;Sound "Type" goes here and number
+  (define s (assemble (apply append sound/offsets)))
+ s)
+(define (Guitar2 file);;
+  (define rows (file->trigger-rows file))
+  (define sound/offsets (for/list ([l (in-list rows)]
+                                   [i (in-naturals)])
+                          (triggers->overlay-list i l "path" "aguitar.wav")));;Sound "Type" goes here and number
+  (define s (assemble (apply append sound/offsets)))
+ s)
+(define (Guitar3 file);;
+  (define rows (file->trigger-rows file))
+  (define sound/offsets (for/list ([l (in-list rows)]
+                                   [i (in-naturals)])
+                          (triggers->overlay-list i l "path" "eguitar.wav")));;Sound "Type" goes here and number
   (define s (assemble (apply append sound/offsets)))
  s)
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ;"Song" is here, Going to use a series of append's and overlays
-(play (overlay (vocal src-file)
-               (vocal src-file2)))
+(define Chorus2 (overlay* (list (scale .5 (vocal VocalChorus))
+                                (scale .2 (Guitar2 Guitar2Chorus2))
+                                (scale .2 (Guitar3 Guitar3Chorus2)))))
+(define Chorus1 (overlay* (list (scale .5 (vocal VocalChorus))
+                                (scale .2 (Guitar2 Guitar2Chorus1)))))
+(define Verse1 (overlay* (list (scale .5 (vocal VocalVerse1))
+                               (scale .2 (Guitar2 Guitar2Verse1)))))
+(define Chorus3 (scale .5 (VocalChorus)))
+#;(define Verse2 (overlay* (list (scale .5 (vocal VocalVerse2))
+                                 (scale .2 (Guitar3 Guitar2Verse2)))))
+(define Interlude (overlay* (list (scale .5 (vocal VocalInterlude))
+                                  (scale .2 (Guitar3 Guitar3Interlude)))))
+#;(define Verse3 (overlay* (list (scale .5 (vocal VocalVerse3))
+                                 (scale .2 (Guitar2 Guitar2Verse3)))))
+
+(play (rs-append* (list Verse1
+                        Chorus1
+                        ;Verse2
+                        Chorus2
+                        Interlude
+                        ;Verse3
+                        Chorus3)))
