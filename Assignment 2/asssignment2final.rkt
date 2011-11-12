@@ -154,4 +154,4 @@
 
 ;;Play and Write
 (play Song)
-;(rs-write Song "Still Alive Team Gamma.wav")
+(rs-write Song "Still Alive Team Gamma.wav")
