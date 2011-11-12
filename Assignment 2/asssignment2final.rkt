@@ -19,8 +19,8 @@
 (define-runtime-path Guitar3Interlude "Guitar3Interlude.txt")
 (define-runtime-path VocalInterlude "VocalInterlude.txt")
 (define-runtime-path Guitar2Verse3 "Guitar2Verse3.txt")
-;(define-runtime-path VocalVerse2 "VocalVerse2.txt")
-;(define-runtime-path VocalVerse3 "VocalVerse3.txt")
+(define-runtime-path VocalVerse2 "VocalVerse2.txt")
+(define-runtime-path VocalVerse3 "VocalVerse3.txt")
 (define-runtime-path VocalOutro "VocalOutro.txt")
 ;; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -139,7 +139,7 @@
 
 (play (rs-append* (list Verse1
                         Chorus1
-                        ;Verse2
+                        Verse2
                         Chorus2
                         Interlude
                         ;Verse3
