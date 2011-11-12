@@ -142,6 +142,6 @@
                         Verse2
                         Chorus2
                         Interlude
-                        ;Verse3
+                        Verse3
                         Chorus3
                         Outro)))
