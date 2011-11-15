@@ -1,6 +1,5 @@
 #lang racket
 (require (planet clements/rsound)
-         (planet clements/rsound/draw)
          rackunit)
 
 ;; USE THESE SOUNDS!
