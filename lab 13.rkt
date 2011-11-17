@@ -39,6 +39,7 @@
 ; Testing 1 2 3
 ; Clip1.wav duration = 10199
 (durations sounds)
+(check-equal? (durations sounds) '(10199 10199) 0)
 
 ;; sum-of-durations-2 : list of rsounds -> number
 ;; Takes in a list of sounds and outputs all their durations added
@@ -60,6 +61,9 @@
         [else false]))
 ; Testing 1 2 3
 (maybe-tone 65)
+(check-equal? (maybe-tone 59) false)
+(check rsound-equal? (maybe-tone 60) 
+       (make-tone (midi-note-num->pitch 60) 1 (* 1/4 44100)))
 
 ;; maybe-tones
 ;; Takes in a list of midi note numbers and returns a sound containing
@@ -75,3 +79,8 @@
 ; Testing 1 2 3
 (maybe-tones (list 5 6 65 67 56 67))
 (play (maybe-tones (list 5 6 65 67 56 65 67)))
+(check rsound-equal? 
+       (maybe-tones (list 4 65 66))
+       (rs-append
+        (make-tone (midi-note-num->pitch 65) 1 11025)
+        (make-tone (midi-note-num->pitch 66) 1 11025)))
