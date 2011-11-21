@@ -8,8 +8,8 @@
 
 ;; Part 1
 ; a note is either
-; - (make-note number number)
-; - (make-silence number)
+; - (make-Note number number)
+; - (make-Silence number)
 (define-struct Note (midi-number duration))
 (define-struct Silence (duration))
 
@@ -33,7 +33,7 @@
 
 
 ;; Part 3
-; sounds-nice-with-60? : Note -> boolean
+; sounds-nice-with-60? : note -> boolean
 ; Returns true if the midi note is within 1, 2, or 6 half-steps
 (define (sounds-nice-with-60? midi-num)
   (cond [(Silence? midi-num) true]
@@ -50,7 +50,7 @@
 (check-expect (sounds-nice-with-60? (make-Silence 44100)) true)
 
 ;; Part 4
-; sounds-nice/2? : Note Note -> boolean
+; sounds-nice/2? : note note -> boolean
 ; Returns true if either note is silence or not within 1, 2, or 6 half steps 
 (define (sounds-nice/2? note1 note2)
   (local [(define note-1 
@@ -72,7 +72,7 @@
 (check-expect (sounds-nice/2? (make-Silence 44100) (make-Note 60 44100)) true)
 
 ;; Part 5
-; sounds-nice/3? : Note Note Note -> boolean
+; sounds-nice/3? : note note note -> boolean
 ; Returns true if any 2 notes are silence or not within 1, 2, or 6 half steps 
 (define (sounds-nice/3? note1 note2 note3)
   (local [(define note-1 
@@ -111,17 +111,36 @@
 (check-expect (sounds-nice/3? (make-Note 58 44100) (make-Silence 44100) (make-Note 60 44100)) false)
 
 ;; Part 6
-;
-;
+; random-note : note
+; Silence is produced 30% of the time
+; Notes 60-72 are produced the other 70% of the time
+; A random time signature between 1.5 and 2 seconds is used for either
+(define random-note
+  (local [(define chance-in-100 (random 100))
+          (define random-time (+ (random 66150) 22050))
+          (define chance-in-12 (random 12))]
+    (cond [(> 30 chance-in-100) 
+           (make-Silence random-time)]
+          [(<= 30 chance-in-100) 
+           (make-Note (+ chance-in-12 60) random-time)])))
+"--random note test--"
+random-note
+random-note
+random-note
+"--End test--"
 
 ;; Part 7
-; a chord is (make-chord Note Note Note)
-(define-struct chord (Note1 Note2 Note3))
+; a chord is (make-chord list)
+(define-struct chord (list))
 
-(make-chord (make-Note 23 44100) 
-            (make-Note 24 44100) 
-            (make-Note 25 44100))
+(make-chord (list (make-Note 23 44100) 
+                  (make-Note 24 44100) 
+                  (make-Note 25 44100)))
 
 ;; Part 8
-;
-;
+; random-chord : chord
+; produces a random chord
+(define random-chord
+  (make-chord (list random-note random-note random-note)))
+
+(play (notes->sound (chord-list random-chord)))
