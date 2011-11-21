@@ -21,8 +21,10 @@
 ; notes->sound : list -> rsound
 ; Returns all the notes playing simultaneously
 (define (notes->sound midi-note-list)
-  (overlay* (for/list ([i (in-list midi-note-list)])
-              (synth-note "main" 20 (Note-midi-number i) (Note-duration i)))))
+   (overlay* (for/list ([i (in-list midi-note-list)])
+               (cond [(Note? i) (synth-note "main" 20 (Note-midi-number i) (Note-duration i))]
+                     [else (silence (Silence-duration i))]))))
+  
 (check-expect (rsound-equal? (notes->sound (list (make-Note 60 44100) 
                                    (make-Note 61 44100) 
                                    (make-Note 62 44100)))
@@ -111,11 +113,11 @@
 (check-expect (sounds-nice/3? (make-Note 58 44100) (make-Silence 44100) (make-Note 60 44100)) false)
 
 ;; Part 6
-; random-note : note
+; random-note : number -> note
 ; Silence is produced 30% of the time
 ; Notes 60-72 are produced the other 70% of the time
 ; A random time signature between 1.5 and 2 seconds is used for either
-(define random-note
+(define (random-note x)
   (local [(define chance-in-100 (random 100))
           (define random-time (+ (random 66150) 22050))
           (define chance-in-12 (random 12))]
@@ -123,15 +125,14 @@
            (make-Silence random-time)]
           [(<= 30 chance-in-100) 
            (make-Note (+ chance-in-12 60) random-time)])))
-"--random note test--"
-random-note
-random-note
-random-note
-"--End test--"
+
+(random-note 10)
+(random-note 2)
+(random-note 5)
 
 ;; Part 7
 ; a chord is (make-chord list)
-(define-struct chord (list))
+(define-struct chord (notes-list))
 
 (make-chord (list (make-Note 23 44100) 
                   (make-Note 24 44100) 
@@ -141,6 +142,6 @@ random-note
 ; random-chord : chord
 ; produces a random chord
 (define random-chord
-  (make-chord (list random-note random-note random-note)))
+  (make-chord (list (random-note 5) (random-note 6) (random-note 7))))
 
-(play (notes->sound (chord-list random-chord)))
+(play (notes->sound (chord-notes-list random-chord)))
