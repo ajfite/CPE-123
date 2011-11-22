@@ -25,12 +25,12 @@
                (cond [(Note? i) (synth-note "main" 20 (Note-midi-number i) (Note-duration i))]
                      [else (silence (Silence-duration i))]))))
   
-(check-expect (rsound-equal? (notes->sound (list (make-Note 60 44100) 
-                                   (make-Note 61 44100) 
-                                   (make-Note 62 44100)))
-               (overlay* (list (synth-note "main" 20 60 44100)
-                               (synth-note "main" 20 61 44100)
-                               (synth-note "main" 20 62 44100))))
+(check-expect (rsound-equal? (notes->sound (list (make-Note 60 44100)
+                                                 (make-Note 61 44100)
+                                                 (make-Note 62 44100)))
+                             (overlay* (list (synth-note "main" 20 60 44100)
+                                             (synth-note "main" 20 61 44100)
+                                             (synth-note "main" 20 62 44100))))
               true)
 
 
@@ -39,8 +39,8 @@
 ; Returns true if the midi note is within 1, 2, or 6 half-steps
 (define (sounds-nice-with-60? midi-num)
   (cond [(Silence? midi-num) true]
-        [(or (= 61 (Note-midi-number midi-num)) 
-             (= 62 (Note-midi-number midi-num)) 
+        [(or (= 61 (Note-midi-number midi-num))
+             (= 62 (Note-midi-number midi-num))
              (= 66 (Note-midi-number midi-num))
              (= 59 (Note-midi-number midi-num))
              (= 58 (Note-midi-number midi-num))
@@ -53,11 +53,11 @@
 
 ;; Part 4
 ; sounds-nice/2? : note note -> boolean
-; Returns true if either note is silence or not within 1, 2, or 6 half steps 
+; Returns true if either note is silence or not within 1, 2, or 6 half steps
 (define (sounds-nice/2? note1 note2)
-  (local [(define note-1 
+  (local [(define note-1
             (if (Note? note1) (Note-midi-number note1) note1))
-          (define note-2 
+          (define note-2
             (if (Note? note2) (Note-midi-number note2) note2))]
   (cond [(or (Silence? note2)
              (Silence? note1)) true]
@@ -75,22 +75,22 @@
 
 ;; Part 5
 ; sounds-nice/3? : note note note -> boolean
-; Returns true if any 2 notes are silence or not within 1, 2, or 6 half steps 
+; Returns true if any 2 notes are silence or not within 1, 2, or 6 half steps
 (define (sounds-nice/3? note1 note2 note3)
-  (local [(define note-1 
+  (local [(define note-1
             (if (Note? note1) (Note-midi-number note1) note1))
-          (define note-2 
+          (define note-2
             (if (Note? note2) (Note-midi-number note2) note2))
           (define note-3
             (if (Note? note3) (Note-midi-number note3) note3))]
-    (cond [(and (Note? note1)(Note? note2)) 
+    (cond [(and (Note? note1)(Note? note2))
            (if (or (= (- note-1 note-2) 1)
                    (= (- note-1 note-2) -1)
                    (= (- note-1 note-2) 2)
                    (= (- note-1 note-2) -2)
                    (= (- note-1 note-2) 6)
                    (= (- note-1 note-2) -6)) false true)]
-          [(and (Note? note2)(Note? note3)) 
+          [(and (Note? note2)(Note? note3))
            (if (or (= (- note-3 note-2) 1)
                    (= (- note-3 note-2) -1)
                    (= (- note-3 note-2) 2)
@@ -121,9 +121,9 @@
   (local [(define chance-in-100 (random 100))
           (define random-time (+ (random 66150) 22050))
           (define chance-in-12 (random 12))]
-    (cond [(> 30 chance-in-100) 
+    (cond [(> 30 chance-in-100)
            (make-Silence random-time)]
-          [(<= 30 chance-in-100) 
+          [(<= 30 chance-in-100)
            (make-Note (+ chance-in-12 60) random-time)])))
 
 (random-note 10)
@@ -134,8 +134,8 @@
 ; a chord is (make-chord list)
 (define-struct chord (notes-list))
 
-(make-chord (list (make-Note 23 44100) 
-                  (make-Note 24 44100) 
+(make-chord (list (make-Note 23 44100)
+                  (make-Note 24 44100)
                   (make-Note 25 44100)))
 
 ;; Part 8
