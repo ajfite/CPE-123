@@ -56,9 +56,9 @@
 ; Returns true if either note is silence or not within 1, 2, or 6 half steps
 (define (sounds-nice/2? note1 note2)
   (local [(define note-1
-            (if (Note? note1) (Note-midi-number note1) note1))
+            (if (Note? note1) (Note-midi-number note1) false))
           (define note-2
-            (if (Note? note2) (Note-midi-number note2) note2))]
+            (if (Note? note2) (Note-midi-number note2) false))]
   (cond [(or (Silence? note2)
              (Silence? note1)) true]
         [(or (= (- note-1 note-2) 1)
@@ -77,37 +77,12 @@
 ; sounds-nice/3? : note note note -> boolean
 ; Returns true if any 2 notes are silence or not within 1, 2, or 6 half steps
 (define (sounds-nice/3? note1 note2 note3)
-  (local [(define note-1
-            (if (Note? note1) (Note-midi-number note1) note1))
-          (define note-2
-            (if (Note? note2) (Note-midi-number note2) note2))
-          (define note-3
-            (if (Note? note3) (Note-midi-number note3) note3))]
-    (cond [(and (Note? note1)(Note? note2))
-           (if (or (= (- note-1 note-2) 1)
-                   (= (- note-1 note-2) -1)
-                   (= (- note-1 note-2) 2)
-                   (= (- note-1 note-2) -2)
-                   (= (- note-1 note-2) 6)
-                   (= (- note-1 note-2) -6)) false true)]
-          [(and (Note? note2)(Note? note3))
-           (if (or (= (- note-3 note-2) 1)
-                   (= (- note-3 note-2) -1)
-                   (= (- note-3 note-2) 2)
-                   (= (- note-3 note-2) -2)
-                   (= (- note-3 note-2) 6)
-                   (= (- note-3 note-2) -6)) false true)]
-          [(and (Note? note3)(Note? note1))
-           (if (or (= (- note-1 note-3) 1)
-                   (= (- note-1 note-3) -1)
-                   (= (- note-1 note-3) 2)
-                   (= (- note-1 note-3) -2)
-                   (= (- note-1 note-3) 6)
-                   (= (- note-1 note-3) -6)) false true)]
-          [else true])))
+  (and (sounds-nice/2? note1 note2)
+       (sounds-nice/2? note2 note3)
+       (sounds-nice/2? note1 note3)))
 
 (check-expect (sounds-nice/3? (make-Note 58 44100) (make-Note 60 44100) (make-Note 69 44100)) false)
-(check-expect (sounds-nice/3? (make-Note 57 44100) (make-Note 60 44100) (make-Note 63 44100)) true)
+(check-expect (sounds-nice/3? (make-Note 57 44100) (make-Note 60 44100) (make-Note 70 44100)) true)
 (check-expect (sounds-nice/3? (make-Silence 44100) (make-Note 60 44100) (make-Note 72 44100)) true)
 (check-expect (sounds-nice/3? (make-Silence 44100) (make-Note 60 44100) (make-Note 58 44100)) false)
 (check-expect (sounds-nice/3? (make-Note 58 44100) (make-Silence 44100) (make-Note 60 44100)) false)
