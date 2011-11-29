@@ -88,7 +88,7 @@
 
 ;;Sound is defined here
 ;///////////////////////////////////////////////////////////////////////////////////////////////////////
-(define (Piano file);;
+(define (Pianos file);;
   (define rows (file->trigger-rows file))
   (define sound/offsets (for/list ([l (in-list rows)]
                                    [i (in-naturals)])
@@ -101,7 +101,7 @@
 (define p .6)
 
 ;"Song" is here, Going to use a series of append's and overlays
-(define Piano1 (scale p (vocal Piano)))
+(define Piano1 (scale p (Pianos Piano)))
 
 ;;Assemble song
 (define Song Piano1)
