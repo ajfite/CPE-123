@@ -9,7 +9,7 @@
          
 
 ;; locate the pattern file, use this to import txt files with the notes////////////////////////////////////////////////////////////
-(define-runtime-path Piano "VocalChorus.txt"); Change this to whatever text needed
+(define-runtime-path Piano "Tracker-test.txt"); Change this to whatever text needed
 ;; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
