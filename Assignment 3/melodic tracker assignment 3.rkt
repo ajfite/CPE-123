@@ -9,7 +9,7 @@
          
 
 ;; locate the pattern file, use this to import txt files with the notes////////////////////////////////////////////////////////////
-(define-runtime-path Piano "Tracker-test.txt"); Change this to whatever text needed
+(define-runtime-path Piano "Tracker-test.txt") ; Change this to whatever text needed
 ;; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -19,7 +19,7 @@
 (define secondsperbeat (/ 60 tempo))
 (define framesperbeat (* (default-sample-rate)
                          secondsperbeat))
-(define linesperbeat 2)
+(define linesperbeat 1)
 (define framesperline (/ framesperbeat linesperbeat))
 (define (your-mapper n)
   n)
