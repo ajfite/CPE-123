@@ -1,7 +1,7 @@
 #lang racket
 
 (require (planet clements/rsound:2:8)
-         (planet clements/rsound:2:8/single-cycle)
+         "../includes/rsound_single-cycle_fixed.rkt"
          (planet clements/rsound/envelope)
          (planet clements/rsound/draw)
          racket/runtime-path
@@ -54,7 +54,7 @@
 
 (define (note-mapper line start char dur family wave-num)
   
-  (define line-octave-offset (+ 40 (* 12 (- 3 (floor (/ line 7))))))
+  (define line-octave-offset (+ 36 (* 12 (- 3 (floor (/ line 7))))))
   (define frames (* dur framesperline))
   (match char
     [#\. (list (silence 1) 0)]
