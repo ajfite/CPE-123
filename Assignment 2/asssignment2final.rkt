@@ -66,7 +66,7 @@
 
 (define (note-mapper line start char dur family wave-num)
   
-  (define line-octave-offset (+ 40 (* 12 (- 3 (floor (/ line 7))))))  
+  (define line-octave-offset (+ 36 (* 12 (- 3 (floor (/ line 7))))))  
   (define frames (* dur framesperline))
   (match char
     [#\. (list (silence 1) 0)]
