@@ -1,7 +1,7 @@
 #lang racket
 
 (require (planet clements/rsound:2:8)
-         (planet clements/rsound:2:8/single-cycle)
+         "../includes/rsound_single-cycle_fixed.rkt"
          (planet clements/rsound/envelope)
          (planet clements/rsound/draw)
          racket/runtime-path
