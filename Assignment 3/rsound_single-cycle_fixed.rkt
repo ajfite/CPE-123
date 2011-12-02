@@ -1,9 +1,11 @@
 #lang racket/base
 
-(require (planet "rsound.rkt" ("clements" "rsound.plt" 2 9))
-         (planet "util.rkt" ("clements" "rsound.plt" 2 9))
-         (planet "envelope.rkt" ("clements" "rsound.plt" 2 9))
-         (planet "contrib/adventure-kid-waveforms.rkt" ("clements" "rsound.plt" 2 9))
+(require (planet "rsound.rkt" ("clements" "rsound.plt" 2 11))
+                   
+         (except-in (planet "util.rkt" ("clements" "rsound.plt" 2 11))
+                    resample)
+         (planet "envelope.rkt" ("clements" "rsound.plt" 2 11))
+         (planet "contrib/adventure-kid-waveforms.rkt" ("clements" "rsound.plt" 2 11))
          racket/match
          (for-syntax racket/base)
          (for-syntax syntax/parse)
