@@ -1,345 +1,95 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-reader.ss" "lang")((modname |lab 16|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ())))
-; Dear morning class and others:
-; Enclosed is the entirety of lab 16
-; Trust me it is all there :)
-; There is just one minor catch...
-; With love,
-; A.J. Fite
+(require (planet "main.rkt" ("clements" "rsound.plt" 2 9)))
+(require (planet "draw.rkt" ("clements" "rsound.plt" 2 9)))
 
-;I have left this block here so you can solve Eli's riddle
-;The actual functional code is at the bottom :)
+; Part 1
 
-f6b12131506251cd6477920ff74d6b05
-fc88bd0b3f94c9b737ede65a586b5c5a
-3b6fb1b9f9a35479869d4910b16c84ce
-78ed511abbd0e25da4a8d6768f18f6fe
-a9b050c9304d46710e626914f10880b6
-d70840b9d2f53914b8c1b0ea7c6758e9
-0aff4f6a1bcdea748417f0366650aa7f
-6bf0a6a0580c789b305335b77d6994d8
-17cb662ef72e07fed73383e6cb17e5fc
-5a37e7ebdff0bd60eab29a54f587dae9
-a31f60cf969ca108458c4929394668a0
-d0bd79da582895579c4b1e266b67b3f8
-9cae0f68e1bf54b17b24864247200166
-809069c1fefd06b59cae0f68e1bf54b1
-8fed04f32cdaec59809069c1fefd06b5
-fcaeacef4748ae79cb1f54268fad835d
-0d41d1fa03e13259a058ba1aaf2f5bff
-f1f1e904a642fc59819a2cca565a0ea1
-630546af71387c7049d6cf09fa2b7991
-3890b85fa0ef342a711ac5e5ae308e60
-28a7535f9801db6d5f8d82a6be1441cf
-1bb6220f988d5b72882dd39cae18756b
-5c5ccfed121589b08c9d9f6bd60779d9
-05b49da922777f9074cc08cea893fc5e
-882dd39cae18756b3785d6d5e5bdace6
-75637adcc3b7d8d888e880b2e0d1c8d5
-5fd9ea100fa0b23587082d77627942ca
-db94a417683ecf9588e880b2e0d1c8d5
-58a386fc2979ce627c87e71f2262e10a
-262225b650973024ac553bf7cc5a6c82
-2cd30390c31fefa62dc39de8cf686f48
-75637adcc3b7d8d840eed60ca3aca92d
-05b49da922777f9092e10f2f960bd2f1
-882dd39cae18756b16bbc0be2edc98c2
-5f5b5a29222ca41688e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-b5b8cacb41a9c58bec2d891935dd0678
-fd2f745626ef5b6288e880b2e0d1c8d5
-88e880b2e0d1c8d5b5b8cacb41a9c58b
-7a50bfb1fc690505db68761d9be1cc98
-fd9ceb014bbe7d36db046bc789dddd1e
-eaf312d91d3a9856504b34251bb62865
-8559ff67f335c7d7b5b8cacb41a9c58b
-24b4f0a039b330cc4402a509bc3e9ed7
-55b29214ecf62b541c596aeff605a44e
-691f4f888f2672b6eb6f3713764e53a8
-00979c027e524a5e5c3eae69420a0909
-88e880b2e0d1c8d588e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-93a0be0e759572da497dc8404ab6105d
-565f0a62f65392ed88e880b2e0d1c8d5
-88e880b2e0d1c8d540eed60ca3aca92d
-4c24538713da8e91759eaeba4045f409
-096a9614435096b0a4e0ee5cf42d9b6a
-1acd7ceb1c96f7694b08cbbc77bc8d82
-a09f86a8a1b6620588e880b2e0d1c8d5
-88e880b2e0d1c8d57c0ea5b17a0e8cfe
-7b2486424720016688de3ee110f47c9a
-52d776fe0ad0f8441defa9dd722c993a
-b3082f8ceaa3ecfb88e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-93a0be0e759572dad9c5fb272b61561c
-50f204d21cd51d3688e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-0c2101427822cd3900979c027e524a5e
-bfd728e40e915f05b5bdec2965818547
-00c492fcaf6d6cd261c6b671880e59e5
-fd6c5015655494618e0ae528dc07006d
-948eb4435b25173bc5eb2e12d755c3ee
-5d49bc12a1438839729168b2a26cd3cb
-73c4b94b5414ec4f636228f8b177bd22
-a6c62aa173e2399dfb240573b5276843
-2631f35f58a6a6af9ccedf301530e510
-09bb154d3ad069ae97c12fb1dd15c719
-75a14aa280348423b72a37b2e68e8af6
-d6f060766cd5754088e880b2e0d1c8d5
-94fa38e6d634c9c9d319ff8edbbb7a4d
-9e27dfcbd355af0c7d160ca540d073f1
-6a8a281921f6bea388e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-88e880b2e0d1c8d537dc026b02d5df83
-c4e41b0ff46564665f5b5a29222ca416
-d8f79f32511e0222fb6efd0c4ca95f25
-c9998f326b43e3b7119c894b34046cdf
-26b2b2dea2293176f2c0aebbeed60297
-88e880b2e0d1c8d588e880b2e0d1c8d5
-88e880b2e0d1c8d57c0ea5b17a0e8cfe
-cf6c067bb7b406e5f4ec28688eeb6c7f
-75637adcc3b7d8d89aa98e2675706038
-b2878e746e486b61ee1241aa0f33eb23
-c8d5968b6f99adb175637adcc3b7d8d8
-8c1131a6a864f91753ba874f3a6650b7
-a239c6531ab5661765e04b0a4c0049de
-801ac4a61840996a565f0a62f65392ed
-88e880b2e0d1c8d588e880b2e0d1c8d5
-88e880b2e0d1c8d57c0ea5b17a0e8cfe
-c2bface97cdbe6d84fa04a9a3a590a2d
-88e880b2e0d1c8d51f5fc2c3dede1f69
-fa42377b387e08118acd168760e82396
-27ca08e6b7fb42871e8a38a28faedb47
-5f5b5a29222ca41688e880b2e0d1c8d5
-88e880b2e0d1c8d588e880b2e0d1c8d5
-311673cda51dde27ef1827ed81cc658d
-f850c836b079ae605798674d4692734e
-c93142a8813b514e360272b3d02ce308
-7b3d61ede04d6a7fdd747648cb228519
-6041cc9323de252d185d00f987f32f4e
-200b44ed8a8fb24d4b314c70ade2f724
-29252b1eb3e80cf58402b03ec6a4b70f
-fcbd73cef1dfa5a773c4b94b5414ec4f
-0f2ec750987b8566db971fdaa01e7b86
+; a pom (piece of music) is 
+; - (make-pn number number)
+; - (make-seq pom pom)
+; - (make-ovl pom pom)
+(define-struct pn (nn dur))
+(define-struct seq (pa pb))
+(define-struct ovl (pa pb))
+; Examples:
+(make-pn 44 88000)
+(make-seq (make-seq (make-pn 55 45) 
+                    (make-pn 45 34)) 
+          (make-pn 55 55))
+(make-ovl (make-pn 34 7899)
+          (make-seq (make-ovl (make-pn 55 6600)
+                              (make-pn 65 6600))
+                    (make-pn 55 44100)))
 
-;Actual functional COMPLETED lab code as of 1:22am 11/29/2011
-;Provided with love by A.J. Fite :)
+; Tester poms
+(define pom1 (make-pn 44 88000))
+(define pom2 (make-seq (make-seq (make-pn 55 45) 
+                                 (make-pn 45 34)) 
+                       (make-pn 25 55)))
+(define pom3 (make-ovl (make-pn 34 7899)
+                       (make-seq (make-ovl (make-pn 55 6600)
+                                           (make-pn 65 6600))
+                                 (make-pn 55 44100))))
 
-e16cac359a976c781c904244017739fa
-0831df4292e0eb7c0faade172ab41118
-539b5cfcf1ae8881ac8e6204c6a92b1c
-a8be8b0d7ce6686e101def5206f33675
-2b0cacf996c60e69ff27cbd2e856d23d
-b05ce943e7a8d0a72cf76ef0f9930686
-e42b024e52c1b5a3ab3413b2e7c472dd
-6a8589bed1570e9d456eb0b573e43a09
-e9e76557f35c8bf2a59d851ff06df69d
-c34bc237ff98a5ae9caa0905e90d94f9
-5d20813ee910ea5292db7ba4aac670ba
-e8093614608a5354603b884245bdc853
-f5159f2b1de34afafec5c257e427492e
-c143189bb69c66acf5159f2b1de34afa
-39dc24e09a1b827ac143189bb69c66ac
-874ae4bf4db80cb6220010ad6b88bea2
-864c44e0dbe7ec86340e67b14aea4ee1
-179fa56fe5232e1e0bedddb94ddfbcb1
-9b07563714e097d06992466719816458
-809f6171ca6e1a6517297d59211b4cc7
-ac9493387ae591fffdbb03a39328905b
-58deb03b81db470fdae0ab46cd4f0612
-ae80a23ee32aee5059ac492a37ba32c4
-f3b791887b0507a182223b17f75ebdd1
-dae0ab46cd4f0612d44be4535255a8ce
-2d8985cd485d18b34295f43bba0c24fe
-78023acfc553e23df907c9547319a621
-8424ec01e3d34da74295f43bba0c24fe
-b6972dae26dbc3297de7ff8f2ff18992
-f81b20187d967d82245358aaacaf3551
-f32c1759b59354351430f9b399272dd9
-2d8985cd485d18b36395044945330964
-f3b791887b0507a1b049269a2207702a
-dae0ab46cd4f06124b7dc14ec8b1031c
-72c14ed6030f540e4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-0bc3bf6f1df7555f37fd1c2462d187fd
-8800e4f56afd582d4295f43bba0c24fe
-4295f43bba0c24fe0bc3bf6f1df7555f
-c120ca30521a090677459fa01c254429
-e8eb057e7ac11a91eb134e7d80244458
-c677eb25f3a2d3dcce3441bcaa490ed5
-e64248000e84355b8798c30f40bd72fe
-bdb38a387ec98f42e551d77b7d19cccb
-43e0bf2161f5e963df6a9f6401ad7438
-3216b46353147f15d804b057346eb6f1
-f4a17c489d90732b4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-78023acfc553e23df907c9547319a621
-8424ec01e3d34da74295f43bba0c24fe
-4295f43bba0c24fe955b2fba7fecb167
-dae0ab46cd4f0612fe9b710ce1b73e97
-c1d19c7a6a3fffd164b4a77b6c31c285
-39dc24e09a1b827a160e7968eeae334d
-fdbe949e32728e687849105d24f9fc9a
-4295f43bba0c24fe4295f43bba0c24fe
-6395044945330964f3b791887b0507a1
-b049269a2207702adae0ab46cd4f0612
-4b7dc14ec8b1031c72c14ed6030f540e
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-78023acfc553e23d64f3cba3f544c5a7
-6d8a4c15837763dd2d8985cd485d18b3
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24feb6972dae26dbc329
-31ce9cbd1e213d6f258cda2fcd1b95da
-35cad8ac13f3254f35f962ce87167eee
-53fc814e88d0cf86c143189bb69c66ac
-83635959f35d32f9478b2a0fadcbb149
-96230ba825575920ae71cdadf8b7bddb
-6ef9817dc817e90dff15e2dbb8a02161
-32e210abe6697f681bb833c34455b3d6
-0760a1c2dd1ac6ca21e5a2843f37cbac
-c3aef0c72a4b35480ce440d8a59c884c
-39238cea2c654e1816aeba3eeeee3065
-48bca3cd532b49c2570f14f490a7e621
-c8549800624c077e374c97515303d993
-a56bef7184d8f3eda277a15f1a3fb464
-7eec22270e8f7f224295f43bba0c24fe
-4295f43bba0c24febba16d771a062a85
-5a5fa9ec719bde7c1a60d90ec9c704b9
-a9565986c33debe14295f43bba0c24fe
-7086f94d1a8614f26e64135f1451ec48
-16c51ff769aafda83a823c2256c017a4
-40cddf29ce41e6c92d8985cd485d18b3
-4295f43bba0c24fe4295f43bba0c24fe
-cce685aeab93c942a1186420348351b0
-f846ff72614abfec717fea6f39e53db6
-a50557120e7e0e65b2413bfd9d2625a7
-08ee9b2501cb6f52e89cec9a1df28f68
-793d4239219c5acc768c30880319431a
-cecff32bf6c7c1a08d159fe3aa4c95e2
-f5ff47274a78e9cf4a723400e266235e
-3ed2ec94a24e21b1ec6edf8940e85052
-ea56d4e17b0b2800819c04e90e2b3078
-6b1e225e54b06775ab79267c52217be5
-1800ca2894a4d5e5ba1571c10faa771b
-ba0fcc8ba3eb9eb9b07fcaac5ba911a4
-6ef9817dc817e90d7dbb7590509f5824
-84e404c6602d8022c267253ee073d67a
-84c04266ce098afbb30029866ce62d93
-3e34de73f5076d969e256f8b23f8041b
-e7404c198d85775b3e61a8e513d3ddd6
-2d8985cd485d18b38cf08d0b36f496f3
-cf37801146ff65ed6711a5a65f15aa68
-0fed190cbe1adefd36c95b775374c0ca
-2802a4c2a429473c4295f43bba0c24fe
-4295f43bba0c24fe019d5ab030e6f2b6
-dadc91f777e2cb6162b29bc72f4d58e5
-b13ee6e2c7fd9999cebeaf129651df14
-bdd118cd2c884b9816c09936cdec4589
-0962d3aa5dcc7ef15950f8850f0eafe1
-44438796bcc0c6944295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-84c04266ce098afb614b0e2c1760be62
-2ee339100165fd4c346e2c0f049138ec
-6f82351367fe6e2190ae959bee579406
-a4ed0264209141c020d8596e335d1a12
-17cc3339c3c42cb3d1454e8fd0f64b03
-c93aa30b006f3d593479757f18f7151b
-4719f587fb9705481c7cbc30b20c0bfe
-e5c681cec6d2a37ac7cd294db20c20ed
-c5842b67e965380e456eb0b573e43a09
-55b34ebf98f39abd8231c21f9ae763e0
-04496317ee53945bdaf1f89e15a203ef
-6a967a82dd8b8986dc2645a2254291c0
-3d146b0232837276e8eb63322de2e5e6
-12fa8d6cf5ea4ce40f5f87e434928459
-c5c3de8b58481651dbfdf9051fae51be
-45424d8f388c8b473018456fec4867ac
-3bd439cba249f93caec513711dfbeccd
-530ba61f8460ea4aea9b5efccd6bd1df
-6afca5bd5fc60c07c5890d93516dbcb2
-88a3b4be56cf3afe5c55676c92c780c2
-f71b0982b54e96ec6c9c1115e161f35e
-5274b916502651faf6ccc9c941d2014b
-73ff37f5539301f91e15e22fc697653e
-33517208add7baa1d59f8a698594d27a
-3cbee18f4790788bbce7f6f6896fed7d
-f44f788a0aa1afa6ccabeccdabafc832
-21739ed61de8769292e93fa3c8525282
-e471a89595a268b8c267253ee073d67a
-060bb8bab7b3db94e7b5674cef564891
-e3ae1cce703196c193eb11f6ed8568b5
-0104e00590c77c8d678d1519da597cb8
-ffaba01889ea599d00d3d8c0c4165075
-4e6df1eead49feb4608b075ecc3b52b5
-72c14ed6030f540e9f4ea17ee4053ad1
-a6bb767c37f34b0a52d0adfa71f3039e
-4f6e5186da6ce9ea060bb8bab7b3db94
-4bd429a0fac43b6d36c95b775374c0ca
-72c14ed6030f540e4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fe060bb8bab7b3db94
-4bd429a0fac43b6df846ff72614abfec
-0469661ee7a22e4d2db30c2051e89ad4
-69ed75044093d40666dc10023f451210
-bf9b0f2a0020127450b3a4a4186e80ca
-34b6e6916b92a67a8800e4f56afd582d
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fe88d5a5c0ba9c9321
-8833c166d2b1bc613c721271a61288f5
-37ee00ca6c112d38d554b523ac69f215
-1346999a254f24f561092f35832ba653
-4fe7179453a175091b55d38503af03f4
-3bb293dd103b3da24295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-78023acfc553e23d3bd439cba249f93c
-03f27f8c804aab1d4c2aa8b87318c6d7
-f4a17c489d90732b4295f43bba0c24fe
-d40295c809b53c4fd554b523ac69f215
-1346999a254f24f561092f35832ba653
-4fe7179453a175091b55d38503af03f4
-6b1a5bfc85ad55944295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-581b0b9c0955d6628a026c9f95d45e33
-2802a4c2a429473c4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-ab07e1c19cc7b8b38231c21f9ae763e0
-b3f39e95a23b5aef3061ba5051ef1e42
-2d8985cd485d18b34295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-78023acfc553e23d3bd439cba249f93c
-802530dbee06d6bc58ef8c28f9c45c37
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-6395044945330964a51b55f8edad8e4c
-29dc2677d83a2de0a790fcc9ce270086
-4295f43bba0c24fe0630b9a3438195e5
-9b93b9d5bdc899971c7cbc30b20c0bfe
-a3d79ac83c5b0ff28854251d96ef0d73
-b0d40c79660b190f90cb3a5fc55523d7
-759e50fa09d82a164295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-66dc10023f4512108c7167f1acca209c
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fea5ee473940241553
-c1b064ed1d606bc6f8612dae341cc281
-601b41ce426e6ff94295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-406b895fdd78acb88a7793bec8c90075
-2d8985cd485d18b34295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-df1b88bcfde4bee9da83ace14f93a239
-8231c21f9ae763e0b3f39e95a23b5aef
-13d7206707861e03daac57176a175a54
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fea5ee473940241553
-c1b064ed1d606bc6b57a84bbefc9fecd
-c7a7bcb938e718ea4295f43bba0c24fe
-4295f43bba0c24fe4295f43bba0c24fe
-4295f43bba0c24fe6395044945330964
-a51b55f8edad8e4ce614aff5df49be20
-be2545779d6f63d78800e4f56afd582d
-4295f43bba0c24fe5e6f5c2ccb4806d0
+; Part 2
+; highest : pom pom -> number
+; Takes in 2 poms and outputs the highest note
+(define (highest pom)
+  (cond [(pn? pom) (pn-nn pom)]
+        [(seq? pom) (max (highest (seq-pa pom))
+                         (highest (seq-pb pom)))]
+        [(ovl? pom) (max (highest (ovl-pa pom))
+                         (highest (ovl-pb pom)))]))
+
+(check-expect (highest pom1) 44)
+(check-expect (highest pom2) 55)
+(check-expect (highest pom3) 65)
+
+; Part 3
+; longest : pom -> number
+; Takes in a pom and outputs the longest 
+(define (longest pom)
+  (cond [(pn? pom) (pn-dur pom)]
+        [(seq? pom) (max (longest (seq-pa pom)) 
+                         (longest (seq-pb pom)))]
+        [(ovl? pom) (max (longest (ovl-pa pom))
+                         (longest (ovl-pb pom)))]))
+
+(check-expect (longest pom1) 88000)
+(check-expect (longest pom2) 55)
+(check-expect (longest pom3) 44100)
+
+; Part 4
+; make-tone-midi : number number number -> rsound
+; make tone but it uses a midi note number
+(define (make-tone-midi note volume duration)
+  (make-tone (midi-note-num->pitch note) volume duration))
+
+; serialize : pom -> rsound
+; takes in a pom and spits out the corresponding Rsound
+(define (serialize pom)
+  (cond [(pn? pom) (make-tone-midi (pn-nn pom) 1 (pn-dur pom))]
+        [(seq? pom) (rs-append* (list (serialize (seq-pa pom))
+                                      (serialize (seq-pb pom))))]
+        [(ovl? pom) (overlay (serialize (ovl-pa pom))
+                             (serialize (ovl-pb pom)))]))
+
+(check-expect (rsound-equal? (serialize pom1)
+                             (make-tone-midi 44 1 88000)) 
+              true)
+(check-expect (rsound-equal? (serialize pom2)
+                             (rs-append* 
+                              (list (make-tone-midi 55 1 45)
+                                    (make-tone-midi 45 1 34)
+                                    (make-tone-midi 25 1 55))))
+              true)
+(check-expect (rsound-equal? (serialize pom3)
+                             (overlay
+                              (make-tone-midi 34 1 7899)
+                              (rs-append* 
+                               (list (overlay (make-tone-midi 55 1 6600)
+                                              (make-tone-midi 65 1 6600))
+                                     (make-tone-midi 55 1 44100)))))
+              true)
