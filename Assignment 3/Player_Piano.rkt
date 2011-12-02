@@ -1,25 +1,22 @@
 #lang racket
 
 (require (planet clements/rsound:2:8)
-         "../includes/rsound_single-cycle_fixed.rkt"
+         "rsound_single-cycle_fixed.rkt"
          (planet clements/rsound/envelope)
          (planet clements/rsound/draw)
          racket/runtime-path
          rackunit)
          
 
-;; locate the pattern file, use this to import txt files with the notes////////////////////////////////////////////////////////////
-(define-runtime-path Piano "Tracker-test.txt") ; Change this to whatever text needed
-;; ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+;; locate the pattern file, use this to import txt files with the notes
+(define-runtime-path Piano "PianoPlay.txt") ; Change this to whatever text needed
 
 ;; define some constants of the song
-(define tempo 120)
+(define tempo 114)
 (define secondsperbeat (/ 60 tempo))
 (define framesperbeat (* (default-sample-rate)
                          secondsperbeat))
-(define linesperbeat 1)
+(define linesperbeat 4)
 (define framesperline (/ framesperbeat linesperbeat))
 (define (your-mapper n)
   n)
@@ -59,7 +56,7 @@
   (match char
     [#\. (list (silence 1) 0)]
     [#\- (list (silence 1) 0)]
-    [other (list (scale .5 (synth-note family wave-num(your-mapper
+    [other (list (scale .4 (synth-note family wave-num(your-mapper
                                               (+ line-octave-offset(digit->half-steps other))) frames))
                                               (* start framesperline))]))
 
@@ -81,7 +78,6 @@
     [#\B 11]))
 
 ;;Sound is defined here
-;///////////////////////////////////////////////////////////////////////////////////////////////////////
 (define (Pianos file);;
   (define rows (file->trigger-rows file))
   (define sound/offsets (for/list ([l (in-list rows)]
@@ -89,17 +85,9 @@
                           (triggers->overlay-list i l "vgame" 1)));;Sound "Type" goes here and number
   (define s (assemble (apply append sound/offsets)))
  s)
-;//////////////////////////////////////////////////////////////////////////////////////////////////////
-
-;; Scalers
-(define p .6)
 
 ;"Song" is here, Going to use a series of append's and overlays
-(define Piano1 (scale p (Pianos Piano)))
-
-;;Assemble song
-(define Song Piano1)
+(define Player-Piano-Song (scale .5 (Pianos Piano)))
 
 ;;Play and Write
-(play Song)
-(rs-write Song "Still Alive Team Gamma.wav")
+(rs-write Player-Piano-Song "Piano Play.wav")
